@@ -4,6 +4,8 @@ import router from './router'
 import store from "./store";
 // import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import "./constants/axios";
+import "./constants/moment";
+
 
 Vue.config.productionTip = false
 

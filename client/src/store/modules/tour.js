@@ -92,6 +92,22 @@ export default {
                     reject(error)
                 })
             })
+        },
+        goOrder(context, id) {
+            return new Promise((resolve, reject) => {
+         
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+                axios.post('/orders', {
+                    id: id, 
+                    
+                })
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+            })
         }
     },
     mutations: {

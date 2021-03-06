@@ -5,6 +5,10 @@ import Home from '../views/Home.vue'
 import Catalog from '../views/Catalog.vue'
 import TourDetail from '../views/TourDetail.vue'
 
+import Overview from '../components/tour/Overview.vue'
+import Comments from '../components/tour/Comments.vue'
+import dateAndPrice from '../components/tour/DateAndPrice.vue'
+
 import Register from '../views/auth/Register.vue'
 import Login from '../views/auth/Login.vue'
 import Logout from '../views/auth/Logout.vue'
@@ -14,6 +18,7 @@ import AdminTours from '../views/admin/tour/Tours.vue'
 import AdminUpdateTour from '../views/admin/tour/UpdateTour.vue'
 import AdminCreateTour from '../views/admin/tour/CreateTour.vue'
 import AdminDeleteTour from '../views/admin/tour/DeleteTour.vue'
+// import { component } from 'vue/types/umd'
 
 
 Vue.use(VueRouter)
@@ -41,6 +46,25 @@ const routes = [
     path: '/tour/:slug',
     name: 'tourDetail',
     component: TourDetail,
+    children: [
+      {
+        path: '',
+        name: 'overview',
+        component: Overview
+      },
+      {
+        path: 'comments',
+        name: 'comments',
+        component: Comments
+      },
+      {
+        path: 'dateAndPrice',
+        name: 'dateAndPrice',
+        component: dateAndPrice,
+        props: true
+      },
+      
+    ],
     props: true,
     meta: {
       layout: 'default-layout'

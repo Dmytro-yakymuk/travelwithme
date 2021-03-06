@@ -24,5 +24,7 @@ func (h *Handler) Init(api *gin.RouterGroup) {
 		h.initRegionRoutes(v1)
 		h.initImageRoutes(v1)
 		h.initUserRoutes(v1)
+		h.initTripRoutes(v1)
+		h.initOrderRoutes(v1)
 	}
 }

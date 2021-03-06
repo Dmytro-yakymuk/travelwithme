@@ -22,6 +22,12 @@ func All() []seed.Seed {
 				return CreateUser(db, "vova", "vova@gmail.com", "123456", "owner")
 			},
 		},
+		seed.Seed{
+			Name: "CreateUser3",
+			Run: func(db *gorm.DB) error {
+				return CreateUser(db, "roma", "roma@gmail.com", "123456", "client")
+			},
+		},
 
 		seed.Seed{
 			Name: "CreateCategory1",
