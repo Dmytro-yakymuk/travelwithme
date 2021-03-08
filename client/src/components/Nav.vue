@@ -58,7 +58,7 @@
                         </li>
 
                         <li class="visible-xs visible-sm nav-visible dropdown last-dropdown v-divider">
-                            <a href="my-cart.html" data-toggle="dropdown">
+                            <a href="/cart" data-toggle="dropdown">
                                 <span class="icon icon-cart"></span>
                                 <span class="text hidden-md hidden-lg">Cart</span>
                                 <span class="text hidden-xs hidden-sm">3</span>

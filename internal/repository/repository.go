@@ -41,6 +41,12 @@ type Trip interface {
 	GetAllTripByTourId(tour_id int) ([]models.Trip, error)
 }
 
+type Order interface {
+	GetAll(id int) ([]models.GetOrderToCart, error)
+	GetAllOrderByTourId(tour_id int) ([]models.Order, error)
+	Create(order models.Order) error
+}
+
 type Repository struct {
 	Authorization Authorization
 	Tour          Tour
@@ -49,6 +55,7 @@ type Repository struct {
 	Image         Image
 	User          User
 	Trip          Trip
+	Order         Order
 }
 
 func NewRepository(db *gorm.DB) *Repository {
@@ -60,5 +67,6 @@ func NewRepository(db *gorm.DB) *Repository {
 		Image:         mdb.NewImageRepository(db),
 		User:          mdb.NewUserRepository(db),
 		Trip:          mdb.NewTripRepository(db),
+		Order:         mdb.NewOrderRepository(db),
 	}
 }

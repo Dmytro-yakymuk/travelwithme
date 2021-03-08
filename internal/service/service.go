@@ -41,6 +41,12 @@ type Trip interface {
 	GetAllTripByTourId(tour_id int) ([]models.Trip, error)
 }
 
+type Order interface {
+	GetAll(id int) ([]models.GetOrderToCart, error)
+	GetAllOrderByTourId(tour_id int) ([]models.Order, error)
+	Create(order models.Order) error
+}
+
 type Service struct {
 	Authorization Authorization
 	Tour          Tour
@@ -49,6 +55,7 @@ type Service struct {
 	Image         Image
 	User          User
 	Trip          Trip
+	Order         Order
 }
 
 func NewService(repository *repository.Repository) *Service {
@@ -60,5 +67,6 @@ func NewService(repository *repository.Repository) *Service {
 		Image:         NewImageService(repository.Image),
 		User:          NewUserService(repository.User),
 		Trip:          NewTripService(repository.Trip),
+		Order:         NewOrderService(repository.Order),
 	}
 }

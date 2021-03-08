@@ -5,6 +5,7 @@ import auth from "./modules/auth"
 import tour from "./modules/tour"
 import region from "./modules/region"
 import user from "./modules/user"
+import order from "./modules/order"
 
 Vue.use(Vuex)
 
@@ -29,7 +30,8 @@ const store = new Vuex.Store({
         auth,
         tour,
         region,
-        user
+        user,
+        order,
     }
 })
 

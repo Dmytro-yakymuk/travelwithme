@@ -8,6 +8,7 @@ import (
 	"github.com/Dmytro-yakymuk/travelwithme/internal/service"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
 )
 
 // Handler ...
@@ -19,6 +20,7 @@ type Handler struct {
 	imageService    service.Image
 	userService     service.User
 	tripService     service.Trip
+	orderService    service.Order
 	services        *service.Service
 }
 
@@ -29,13 +31,14 @@ func NewHandler(services *service.Service) *Handler {
 	}
 }
 
-func (h *Handler) Init() *gin.Engine {
+func (h *Handler) Init(rdb *redis.Client) *gin.Engine {
 	router := gin.Default()
 	router.Use(
 		gin.Recovery(),
 		gin.Logger(),
 	)
 
+	// Cors
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET, POST, OPTIONS, PUT, DELETE"},
@@ -53,15 +56,15 @@ func (h *Handler) Init() *gin.Engine {
 		c.String(http.StatusOK, "pong")
 	})
 
-	h.initAPI(router)
+	h.initAPI(router, rdb)
 
 	return router
 }
 
-func (h *Handler) initAPI(router *gin.Engine) {
+func (h *Handler) initAPI(router *gin.Engine, rdb *redis.Client) {
 	handlerV1 := v1.NewHandler(h.services)
 	api := router.Group("/api")
 	{
-		handlerV1.Init(api)
+		handlerV1.Init(api, rdb)
 	}
 }

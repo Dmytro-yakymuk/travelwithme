@@ -45,6 +45,15 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } 
+  if (to.matched.some(record => record.meta.requiresClient)) {
+    if (localStorage.getItem('role') != "client") {
+      next({
+        name: 'login',
+      })
+    } else {
+      next()
+    } 
+  }
   if (to.matched.some(record => record.meta.requiresOwnerOrAdmin)) {
     if (localStorage.getItem('role') != "owner" && localStorage.getItem('role') != "admin") {
       next({

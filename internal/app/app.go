@@ -10,6 +10,7 @@ import (
 	"github.com/Dmytro-yakymuk/travelwithme/internal/server"
 	"github.com/Dmytro-yakymuk/travelwithme/internal/service"
 	"github.com/Dmytro-yakymuk/travelwithme/pkg/database/mysql"
+	"github.com/Dmytro-yakymuk/travelwithme/pkg/database/redis"
 )
 
 func Run(configPath string) {
@@ -19,6 +20,7 @@ func Run(configPath string) {
 	}
 
 	db := mysql.ConnectDB(cfg.MySQL.User, cfg.MySQL.Password, cfg.MySQL.Host, cfg.MySQL.Port, cfg.MySQL.Name)
+	rdb := redis.ConnectRedis("localhost:6379", "", 0)
 
 	// Migrations
 	db.AutoMigrate(&models.Category{}, &models.Region{}, &models.User{}, &models.Tour{}, &models.Image{}, &models.Comment{}, &models.Trip{}, &models.Order{})
@@ -36,7 +38,7 @@ func Run(configPath string) {
 	handlers := handler.NewHandler(services)
 
 	// HTTP Server
-	srv := server.NewServer(cfg, handlers.Init())
+	srv := server.NewServer(cfg, handlers.Init(rdb))
 	if err := srv.Run(); err != nil {
 		log.Printf("error occurred while running http server: %s\n", err.Error())
 	}

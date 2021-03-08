@@ -56,6 +56,9 @@
             goOrder(id) {
                 if (this.loggedIn && localStorage.getItem('role') == 'client') {
                     this.$store.dispatch('goOrder', id)
+                    .then(
+                        this.$router.push({ name: 'cart'})
+                    )
                 } else {
                     this.$router.push({ name: 'login'})
                 }

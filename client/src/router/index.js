@@ -9,6 +9,9 @@ import Overview from '../components/tour/Overview.vue'
 import Comments from '../components/tour/Comments.vue'
 import dateAndPrice from '../components/tour/DateAndPrice.vue'
 
+import Cart from '../views/Cart.vue'
+import Checkout from '../views/Checkout.vue'
+
 import Register from '../views/auth/Register.vue'
 import Login from '../views/auth/Login.vue'
 import Logout from '../views/auth/Logout.vue'
@@ -67,6 +70,26 @@ const routes = [
     ],
     props: true,
     meta: {
+      layout: 'default-layout'
+    }
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart,
+    meta: {
+      requiresAuth: true,
+      requiresClient: true,
+      layout: 'default-layout'
+    }
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: Checkout,
+    meta: {
+      requiresAuth: true,
+      requiresClient: true,
       layout: 'default-layout'
     }
   },
