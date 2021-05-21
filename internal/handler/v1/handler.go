@@ -8,15 +8,17 @@ import (
 
 type Handler struct {
 	services *service.Service
+	rdb      *redis.Client
 }
 
-func NewHandler(services *service.Service) *Handler {
+func NewHandler(services *service.Service, rdb *redis.Client) *Handler {
 	return &Handler{
 		services: services,
+		rdb:      rdb,
 	}
 }
 
-func (h *Handler) Init(api *gin.RouterGroup, rdb *redis.Client) {
+func (h *Handler) Init(api *gin.RouterGroup) {
 	v1 := api.Group("/v1")
 	{
 		h.initAuthRoutes(v1)
@@ -25,7 +27,12 @@ func (h *Handler) Init(api *gin.RouterGroup, rdb *redis.Client) {
 		h.initRegionRoutes(v1)
 		h.initImageRoutes(v1)
 		h.initUserRoutes(v1)
+		h.initAttachTripRoutes(v1)
 		h.initTripRoutes(v1)
-		h.initOrderRoutes(v1, rdb)
+		h.initOrderRoutes(v1)
+		h.initCommentRoutes(v1)
+		h.initAuditRoutes(v1)
+		h.initEventRoutes(v1)
+
 	}
 }

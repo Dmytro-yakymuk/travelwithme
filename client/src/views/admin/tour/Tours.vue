@@ -5,10 +5,14 @@
                 <div class="col-md-12">
 
                     <router-link
+                        v-if="role != 'admin'"
                         :to="{ name: 'adminCreateTour'}">
-                            <a href="#"> Додати тур</a>
+                            <a class="btn btn-primary btn-color" href="#"> Додати тур</a>
                     </router-link> 
-                    
+
+                    <div v-if="getSuccessMessage != ''" class="alert alert-success" role="alert">{{getSuccessMessage}}</div>
+                    <div v-if="getFailMessage != ''" class="alert alert-danger" role="alert">{{getFailMessage}}</div>
+
                     <div class="panel panel-default">
                         <div class="panel-heading"></div>
                         <div class="panel-body">
@@ -16,19 +20,18 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Назва</th>
-                                            <th>Фото</th>
-                                            <th>Статус</th>
-                                            <th>Видалити</th>
+                                            <th class="text-center">Назва</th>
+                                            <th class="text-center">Фото</th>
+                                            <th class="text-center" v-if="role == 'admin'">Публікація</th>
+                                            <th class="text-center" v-if="role == 'admin'">Власник</th>
+                                            <th class="text-center" v-if="role == 'owner'">Активність</th>
+                                            <th class="text-center"></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        
+                                    <tbody class="tr-height">
                                         <tr v-for="tour in allTours" :key="tour.id" class="gradeX" >
-                                            <td>
-                                                <a href="#" @click="goTo(tour.slug)">{{ tour.title }}</a>
-                                            </td>
-                                            <td>
+                                            <td>{{ tour.title }}</td>
+                                            <td class="text-center">
                                                 <div class="img_upload">
                                                     <img 
                                                         v-for="image in tour.images.slice(0,1)"
@@ -37,9 +40,12 @@
                                                         alt="#">
                                                 </div>
                                             </td>
-                                            <td>{{ tour.status }}</td>
-                                            <td class="center">
-                                                <a @click="goDelete(tour.slug)" href="#"> X</a>
+                                            <td class="text-center" v-if="role == 'admin'"><input @change="goPublic(tour.slug)" type="checkbox" class="form-check-input" v-model="tour.public"></td>
+                                            <td class="text-center" v-if="role == 'admin'"><p>{{ tour.user.name }}</p></td>
+                                            <td class="text-center" v-if="role == 'owner'"><input type="checkbox" class="form-check-input" @change="goActiv(tour.slug)" v-model="tour.activ"></td>
+                                            <td class="text-center">
+                                                <a class="btn btn-primary btn-action" @click="goTo(tour.slug)"> <i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-primary btn-action" @click="goDelete(tour.slug)"> <i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
 
@@ -62,14 +68,21 @@
         data: function () {
             return {
                 imageURL: ShowImageURL,
+                role: localStorage.getItem('role'),
             }
         },
         
-        computed: mapGetters(['allTours']),
+        computed: mapGetters(['allTours', 'getSuccessMessage', 'getFailMessage']),
         methods: {
-            ...mapActions(['getAllTours']),
+            ...mapActions(['getAllTours', 'publicTour', 'activTour']),
             goTo(slug) {
                 this.$router.push({ name: 'adminUpdateTour', params: {slug: slug} })
+            },
+            goPublic(slug) {
+                this.publicTour(slug);
+            },
+            goActiv(slug) {
+                this.activTour(slug);
             },
             goDelete(slug) {
                 this.$router.push({ name: 'adminDeleteTour', params: {slug: slug} })
@@ -77,11 +90,15 @@
         },
         async mounted() {
             this.getAllTours({
-                'where': "user_id="+localStorage.getItem('id'),
-                'order_by': "id desc",
-                'limit': null
+                'user_id': localStorage.getItem('id'),
+                'order_by': "id desc"
             });
-        }
+        },
+		// watch: {
+        //     category_id: function () {
+
+        //     }
+        // }
         
     }
 </script>
@@ -89,6 +106,10 @@
 <style scoped>
     .img_upload {
         height: 150px !important;
-        width: 125px !important;
+        width: 225px !important;
+    }
+    .img_upload img {
+        height: 150px !important;
+        width: 225px !important;
     }
 </style>

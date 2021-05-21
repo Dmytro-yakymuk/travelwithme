@@ -1,19 +1,11 @@
 <template>
-    <nav class="navbar navbar-default top-navbar" role="navigation">
+    <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <router-link :to="{ name: 'admin'}"><a class="navbar-brand" href="#">Адмінка:)</a></router-link>   
+            <router-link :to="{ name: 'admin'}"><a class="navbar-brand" href="#">Адмін панель</a></router-link>   
         </div>
 
-        <ul class="nav navbar-top-links navbar-right">
+        <ul class=" navbar-right hr">
             <li><a href="/">Тур агенство</a></li>
-
-            <li class="divider"></li>
             <li>
                 <router-link :to="{ name: 'logout'}">
                     <a href="#"><i class="fa fa-sign-out fa-fw"></i> Вихід</a>
@@ -32,4 +24,13 @@
 
 <style scoped>
 
+    ul.hr {
+        margin: 10px 0; /* Обнуляем значение отступов */
+        padding: 4px; /* Значение полей */
+    }
+    ul.hr li {
+        display: inline; /* Отображать как строчный элемент */
+        margin-right: 10px; /* Отступ слева */
+        padding: 3px; /* Поля вокруг текста */
+    }
 </style>

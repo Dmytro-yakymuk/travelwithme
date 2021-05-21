@@ -20,6 +20,12 @@ func (r *ImageRepository) GetAllImageByTourId(tour_id int) ([]models.Image, erro
 	return images, result.Error
 }
 
+func (r *ImageRepository) GetMainNameImageByTourId(tour_id int) (string, error) {
+	var image models.Image
+	result := r.db.Where("tour_id = ?", tour_id).First(&image)
+	return image.Name, result.Error
+}
+
 func (r *ImageRepository) Create(tour_id int, name string) error {
 	result := r.db.Model(&models.Image{}).Create(map[string]interface{}{
 		"name": name, "tour_id": tour_id,

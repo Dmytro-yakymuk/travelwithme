@@ -104,3 +104,17 @@ func getUserId(c *gin.Context) (int, error) {
 
 	return idInt, nil
 }
+
+func getUserRole(c *gin.Context) (string, error) {
+	id, ok := c.Get("role")
+	if !ok {
+		return "", errors.New("user role not found")
+	}
+
+	idInt, ok := id.(string)
+	if !ok {
+		return "", errors.New("user role is of invalid type")
+	}
+
+	return idInt, nil
+}

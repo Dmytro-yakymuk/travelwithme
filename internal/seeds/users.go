@@ -10,8 +10,8 @@ import (
 
 const salt = "skjdhgjSKALdjhgdsnjkdzjhxfdjk"
 
-func CreateUser(db *gorm.DB, name, email, password, role string) error {
-	return db.Create(&models.User{Name: name, Email: email, Password: generatePasswordHash(password), Role: role}).Error
+func CreateUser(db *gorm.DB, name, surname, patronymic, email, password, phone string, role_id int) error {
+	return db.Create(&models.User{Name: name, Surname: surname, Patronymic: patronymic, Email: email, Password: generatePasswordHash(password), Phone: phone, RoleId: role_id}).Error
 }
 
 func generatePasswordHash(password string) string {

@@ -83,4 +83,5 @@ func setFromEnv(cfg *Config) {
 	cfg.MySQL.User = os.Getenv("DB_USER")
 	cfg.MySQL.Password = os.Getenv("DB_PASSWORD")
 	cfg.MySQL.Host = os.Getenv("DB_HOST")
+
 }

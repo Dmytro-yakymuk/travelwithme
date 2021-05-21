@@ -19,6 +19,10 @@ func (s *ImageService) GetAllImageByTourId(tour_id int) ([]models.Image, error) 
 	return s.imageRepository.GetAllImageByTourId(tour_id)
 }
 
+func (s *ImageService) GetMainNameImageByTourId(tour_id int) (string, error) {
+	return s.imageRepository.GetMainNameImageByTourId(tour_id)
+}
+
 func (s *ImageService) Create(tour_id int, name string) error {
 	return s.imageRepository.Create(tour_id, name)
 }
@@ -29,8 +33,8 @@ func (s *ImageService) Delete(id int) error {
 		return err
 	}
 
-	path := "/media/dmytro/Disk_D/Web/golang/travelwithme/static/img/tours/" + image.Name
-	err = os.Remove(path)
+	pwd, _ := os.Getwd()
+	err = os.Remove(pwd + "/static/img/tours/" + image.Name)
 	if err != nil {
 		return err
 	}

@@ -83,5 +83,8 @@ func (h *Handler) deleteImage(c *gin.Context) {
 		return
 	}
 
-	c.Status(http.StatusNoContent)
+	newSuccessResponse(c, http.StatusOK,
+		"Фото видалено успішно!",
+		nil,
+	)
 }

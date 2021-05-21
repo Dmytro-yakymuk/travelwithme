@@ -4,7 +4,7 @@
     <div id="wrapper">
       <div class="page-wrapper">
         <Nav />
-        <Banner v-show="$route.name=='home'" />
+        <Banner v-if="$route.name=='home'" />
         <router-view/>
       </div>
       <Footer />

@@ -49,3 +49,15 @@ func (r *UserRepository) GetAll(urlQuery map[string][]string) ([]models.User, er
 	result.Find(&users)
 	return users, result.Error
 }
+
+func (r *UserRepository) GetOneByID(id int) (models.User, error) {
+	var user models.User
+
+	result := r.db.Model(&user).Find(&user, id)
+	return user, result.Error
+}
+
+func (r *UserRepository) Update(userID int, user models.User) error {
+	result := r.db.Model(models.User{}).Where("id = ?", userID).Updates(user)
+	return result.Error
+}

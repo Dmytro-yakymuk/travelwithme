@@ -23,7 +23,7 @@ func Run(configPath string) {
 	rdb := redis.ConnectRedis("localhost:6379", "", 0)
 
 	// Migrations
-	db.AutoMigrate(&models.Category{}, &models.Region{}, &models.User{}, &models.Tour{}, &models.Image{}, &models.Comment{}, &models.Trip{}, &models.Order{})
+	db.AutoMigrate(&models.Category{}, &models.Region{}, &models.Role{}, &models.User{}, &models.Tour{}, &models.Image{}, &models.Comment{}, &models.TripsOrder{}, &models.Trip{}, &models.Order{}, &models.Event{}, &models.ToursEvent{}, &models.Audit{})
 
 	// Seeding
 	// for _, seed := range seeds.All() {
@@ -35,10 +35,10 @@ func Run(configPath string) {
 	// Services, Repos & API Handlers
 	repository := repository.NewRepository(db)
 	services := service.NewService(repository)
-	handlers := handler.NewHandler(services)
+	handlers := handler.NewHandler(services, rdb)
 
 	// HTTP Server
-	srv := server.NewServer(cfg, handlers.Init(rdb))
+	srv := server.NewServer(cfg, handlers.Init())
 	if err := srv.Run(); err != nil {
 		log.Printf("error occurred while running http server: %s\n", err.Error())
 	}

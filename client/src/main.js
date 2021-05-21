@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from "./store";
+import Paginate from 'vuejs-paginate'
 // import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import "./constants/axios";
 import "./constants/moment";
@@ -19,11 +20,18 @@ Vue.component('admin-layout', AdminLayout)
 // Vue.use(IconsPlugin);
 // Vue.use(BootstrapVue);
 
+Vue.component('Paginate', Paginate)
+
 
 // scroll
 var VueScrollTo = require('vue-scrollto');
 Vue.use(VueScrollTo)
 
+// slaider
+import VueSplide from '@splidejs/vue-splide';
+Vue.use( VueSplide );
+import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+///
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {

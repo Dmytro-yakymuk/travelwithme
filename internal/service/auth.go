@@ -4,11 +4,14 @@ import (
 	"crypto/sha1"
 	"errors"
 	"fmt"
+	"log"
+	"os"
 	"time"
 
 	"github.com/Dmytro-yakymuk/travelwithme/internal/models"
 	"github.com/Dmytro-yakymuk/travelwithme/internal/repository"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/joho/godotenv"
 )
 
 const (
@@ -23,6 +26,12 @@ type tokenClaims struct {
 	Role   string `json:"user_role"`
 }
 
+func init() {
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
+
 type AuthorizationService struct {
 	authRepository repository.Authorization
 }
@@ -32,14 +41,19 @@ func NewAuthorizationService(authRepository repository.Authorization) *Authoriza
 }
 
 func (s *AuthorizationService) CreateUser(user models.User) error {
-	user.Password = generatePasswordHash(user.Password)
+	user.Password = s.GeneratePasswordHash(user.Password)
 	return s.authRepository.CreateUser(user)
 }
 
 func (s *AuthorizationService) GenerateToken(email, password string) (map[string]interface{}, error) {
-	user, err := s.authRepository.GetUser(email, generatePasswordHash(password))
-	if err != nil {
-		return nil, err
+	envEmail := os.Getenv("ADMIN_USER")
+	envPassword := os.Getenv("ADMIN_PASSWORD")
+
+	user := models.UserOutput{}
+	if envEmail == email && envPassword == password {
+		user = models.UserOutput{0, "admin"}
+	} else {
+		user = s.authRepository.GetUser(email, s.GeneratePasswordHash(password))
 	}
 
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{
@@ -57,6 +71,7 @@ func (s *AuthorizationService) GenerateToken(email, password string) (map[string
 		"id":    user.Id,
 		"role":  user.Role,
 	}, err
+
 }
 
 func (s *AuthorizationService) ParseToken(accessToken string) (map[string]interface{}, error) {
@@ -82,8 +97,15 @@ func (s *AuthorizationService) ParseToken(accessToken string) (map[string]interf
 	}, nil
 }
 
-func generatePasswordHash(password string) string {
+func (s *AuthorizationService) GeneratePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))
 	return fmt.Sprintf("%x", hash.Sum([]byte(salt)))
+}
+
+func (s *AuthorizationService) IsEqualPasswordHash(password, repitPassword string) bool {
+	if password == s.GeneratePasswordHash(repitPassword) {
+		return true
+	}
+	return false
 }

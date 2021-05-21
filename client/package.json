@@ -7,14 +7,18 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@splidejs/vue-splide": "^0.3.5",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "ladash": "^1.2.0",
+    "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-scrollto": "^2.20.0",
     "vue2-dropzone": "^3.6.0",
+    "vuejs-paginate": "^2.1.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {

@@ -23,7 +23,7 @@
                   height="215" width="370">
                 <div class="hover-article">
                   <div class="info-footer">
-                    <span class="price">від <span>2749 грн</span></span>
+                    <span class="price">від <span>{{ tour.minPrice }} грн</span></span>
                     <a :href="'/tour/'+tour.slug" class="link-more">Детальніше</a>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <!-- couter block -->
-    <aside class="count-block">
+    <!-- <aside class="count-block">
       <div class="container-fluid">
         <header class="content-heading">
           <span class="main-subtitle">Наші тури охоплюють</span>
@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-    </aside>
+    </aside> -->
 
   </main>
 </template>
@@ -107,3 +107,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .img-wrap{
+    height: 300px;
+  }
+</style>

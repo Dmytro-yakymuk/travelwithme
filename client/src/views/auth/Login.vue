@@ -4,13 +4,12 @@
         <!-- top information area -->
         <div class="inner-top">
             <div class="container">
-                <h1 class="inner-main-heading">Login</h1>
+                <h1 class="inner-main-heading">Вхід</h1>
                 <!-- breadcrumb -->
                 <nav class="breadcrumbs">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">pages</a></li>
-                        <li><span>Login</span></li>
+                        <li><a href="#">Головна</a></li>
+                        <li><span>Вхід</span></li>
                     </ul>
                 </nav>
             </div>
@@ -18,8 +17,8 @@
         <div class="inner-main common-spacing container">
             <!-- form -->
             <form class="twocol-form" action="#" @submit.prevent="login">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row d-flex justify-content-center">
+                    <div style="margin: 0 280px;width: 600px">
 
                         <div class="form-holder">
                             <div class="wrap">
@@ -56,13 +55,17 @@ export default {
     },
     methods: {
         login() {
-           this.$store.dispatch('retrieveToken', {
+            this.$store.dispatch('retrieveToken', {
                email: this.email,
                password: this.password
-           })
-           .then(response => {
-               this.$router.push({ name: 'admin' })
-           })
+            })
+            .then(response => {
+                var numberOfEntries = window.history.length;
+                if (numberOfEntries>2) {
+                    this.$router.go(-2)
+                }
+                this.$router.push({ name: 'home' });
+            })
         }  
     }
 }

@@ -23,7 +23,7 @@ func (h *Handler) singUp(c *gin.Context) {
 		return
 	}
 
-	if input.Role != "client" && input.Role != "owner" {
+	if input.RoleId != 1 && input.RoleId != 2 {
 		newErrorResponse(c, http.StatusBadRequest, "Error request")
 		return
 	}
