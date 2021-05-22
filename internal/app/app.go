@@ -7,6 +7,7 @@ import (
 	"github.com/Dmytro-yakymuk/travelwithme/internal/handler"
 	"github.com/Dmytro-yakymuk/travelwithme/internal/models"
 	"github.com/Dmytro-yakymuk/travelwithme/internal/repository"
+	"github.com/Dmytro-yakymuk/travelwithme/internal/seeds"
 	"github.com/Dmytro-yakymuk/travelwithme/internal/server"
 	"github.com/Dmytro-yakymuk/travelwithme/internal/service"
 	"github.com/Dmytro-yakymuk/travelwithme/pkg/database/mysql"
@@ -26,11 +27,11 @@ func Run(configPath string) {
 	db.AutoMigrate(&models.Category{}, &models.Region{}, &models.Role{}, &models.User{}, &models.Tour{}, &models.Image{}, &models.Comment{}, &models.TripsOrder{}, &models.Trip{}, &models.Order{}, &models.Event{}, &models.ToursEvent{}, &models.Audit{})
 
 	// Seeding
-	// for _, seed := range seeds.All() {
-	// 	if err := seed.Run(db); err != nil {
-	// 		log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
-	// 	}
-	// }
+	for _, seed := range seeds.All() {
+		if err := seed.Run(db); err != nil {
+			log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
+		}
+	}
 
 	// Services, Repos & API Handlers
 	repository := repository.NewRepository(db)
