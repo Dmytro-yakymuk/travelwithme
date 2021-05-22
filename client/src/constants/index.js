@@ -1,6 +1,6 @@
-URL = 'http://localhost:8008';
+URL = 'http://localhost:8000';
 
 export const 
     BaseURL = URL + '/api/v1',
     AddImageURL = URL + '/api/v1/images/',
-    ShowImageURL = URL + '/assets/tours/'
+    ShowImageURL = URL + '/assets/img/tours/'

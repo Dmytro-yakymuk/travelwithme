@@ -6,9 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -81,7 +79,7 @@ func (h *Handler) initOrderRoutes(api *gin.RouterGroup) {
 		orderClient := orders.Group("", h.userIdentity)
 		{
 			orderClient.POST("", h.client, h.owner, h.createOrder)
-			orderClient.POST("/download", h.client, h.downloadOrder)
+			orderClient.POST("/download/:id", h.client, h.downloadOrder)
 		}
 
 	}
@@ -375,16 +373,12 @@ func (h *Handler) createOrder(c *gin.Context) {
 
 func (h *Handler) downloadOrder(c *gin.Context) {
 
-	var orderDownload models.OrderDownload
-	if err := c.BindJSON(&orderDownload); err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
-		return
-	}
+	orderID := c.Param("id")
 
-	var readFile []byte
-	if orderDownload.Id != "" {
+	nameFile := ""
+	if orderID != "" {
 
-		orderID, err := uuid.Parse(orderDownload.Id)
+		orderID, err := uuid.Parse(orderID)
 		if err != nil {
 			newErrorResponse(c, http.StatusInternalServerError, err.Error())
 			return
@@ -402,22 +396,16 @@ func (h *Handler) downloadOrder(c *gin.Context) {
 			return
 		}
 
-		nameFile, err := h.services.Order.DownloadOrder(order, trips)
+		nameFile, err = h.services.Order.DownloadOrder(order, trips)
 		if err != nil {
 			newErrorResponse(c, http.StatusInternalServerError, err.Error())
 			return
-		}
-
-		readFile, err = os.ReadFile(nameFile)
-		if err != nil {
-			log.Fatal(err)
 		}
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Замовлення додано! В адмін панелі доступний перегляд замовлень.",
 		"status":  true,
-		"result":  readFile,
+		"result":  "http://localhost:8000/assets/pdfs/" + nameFile,
 	})
-
 }

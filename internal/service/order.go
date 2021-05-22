@@ -120,7 +120,7 @@ func (s *OrderService) DownloadOrder(order models.OrderOutput, trips []models.Tr
 		log.Println(err)
 	}
 
-	return pwd + pathToPDF + namePDF, nil
+	return namePDF, nil
 }
 
 func newReport() *gofpdf.Fpdf {

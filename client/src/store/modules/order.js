@@ -102,9 +102,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 
-                axios.post('/orders/download', {
-                    id: data.id,
-                })
+                axios.post('/orders/download/'+data.id)
                 .then(response => {
                     if (response.data.status == true) {
                         commit('updateSuccessMessage', response.data.message)

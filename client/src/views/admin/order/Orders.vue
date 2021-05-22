@@ -86,28 +86,15 @@
             goDownload(order) {
                 this.downloadOrder({
                     'id': order.id,
-                }).then (response => {
-                   if (response.data.result) {
-                        const blob = new Blob([response.data.result], { type: 'application/pdf' })
-                        const link = document.createElement('a')
-                        link.href = URL.createObjectURL(blob)
-                        link.download = label
-                        link.click()
-                        URL.revokeObjectURL(link.href)
-                    } else {
-                        alert("a;a;a;")
-                    }
                 })
+                .then(({ data }) => {
+                    if (data.result) {
+                        (async function() {
+                            return window.open(data.result)
+                        })(); 
+                    }
+                });
             },
-            // goDelete(slug) {
-            //     this.$router.push({ name: 'adminDeleteTour', params: {slug: slug} })
-            // },
-            // paid(id, paid) {
-            //     this.updatePaid({
-            //         'id': id,
-            //         'paid': paid,
-            //     })
-            // },
             goPaid(order) {
                 this.createOrder({
                     'id': order.id,

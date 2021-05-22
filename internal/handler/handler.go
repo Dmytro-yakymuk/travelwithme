@@ -54,7 +54,7 @@ func (h *Handler) Init() *gin.Engine {
 	}))
 
 	// Static file
-	router.Static("/assets", "/media/dmytro/Disk_D1/Web/golang/travelwithme/static/img")
+	router.Static("/assets", "/media/dmytro/Disk_D1/Web/golang/travelwithme/static")
 
 	// Init router
 	router.GET("/ping", func(c *gin.Context) {
