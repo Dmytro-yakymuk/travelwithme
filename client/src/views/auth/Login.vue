@@ -36,14 +36,15 @@
                                 </div>
                             </div>
                         </div>
+                        Немає акаунта? <a href="/register" data-toggle="dropdown">
+                            <span class="text hidden-md hidden-lg">Зареєструватись</span>
+                        </a>
                     </div>
                     
                 </div>
             </form>
         </div>
-        Немає акаунта? <a href="/register" data-toggle="dropdown">
-            <span class="text hidden-md hidden-lg">Зареєструватись</span>
-        </a>
+        
     </main>
 </template>
 

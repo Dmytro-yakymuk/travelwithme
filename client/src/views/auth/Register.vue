@@ -50,12 +50,13 @@
                             </div>
                         </div>
                     </div>
+                    <a href="/login" data-toggle="dropdown">
+                        <span class="text hidden-md hidden-lg">Увійти</span>
+                    </a>
                 </div>
             </form>
         </div>
-        <a href="/login" data-toggle="dropdown">
-            <span class="text hidden-md hidden-lg">Увійти</span>
-        </a>
+       
     </main>
 </template>
 
