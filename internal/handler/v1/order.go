@@ -78,7 +78,7 @@ func (h *Handler) initOrderRoutes(api *gin.RouterGroup) {
 
 		orderClient := orders.Group("", h.userIdentity)
 		{
-			orderClient.POST("", h.client, h.owner, h.createOrder)
+			orderClient.POST("", h.client, h.createOrder)
 			orderClient.POST("/download/:id", h.client, h.downloadOrder)
 		}
 
