@@ -98,7 +98,7 @@
 											<span><span class="icon-star"></span></span>
 											<span class="disable"><span class="icon-star"></span></span>
 										</div>
-										<div class="info-rate">Based on 75 Reviews</div>
+										<div class="info-rate">Відгуків(3)</div>
 									</div>
 									
 								</div>
