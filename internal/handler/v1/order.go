@@ -286,7 +286,7 @@ func (h *Handler) createOrder(c *gin.Context) {
 		OrderDesc:         "order #" + order.Id.String(),
 		Amount:            strconv.Itoa(int(orderRequest.TotalPrice * float64(100))),
 		Currency:          currency,
-		ServerCallbackURL: "https://ec2-18-196-168-116.eu-central-1.compute.amazonaws.com/api/v1/orders/callback",
+		ServerCallbackURL: "http://ec2-18-196-168-116.eu-central-1.compute.amazonaws.com:8000/api/v1/orders/callback",
 	}
 
 	checkoutReq.SetSignature(merchantPassword)
