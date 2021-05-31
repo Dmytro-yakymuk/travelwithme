@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="/login" data-toggle="dropdown">
+                    Акаунт вже створений? <a href="/login" data-toggle="dropdown">
                         <span class="text">Увійти</span>
                     </a>
                 </div>
