@@ -14,6 +14,7 @@
                 </nav>
             </div>
         </div>
+        
         <div class="inner-main common-spacing container">
             <!-- form -->
             <form class="twocol-form" action="#" @submit.prevent="login">
@@ -40,6 +41,9 @@
                 </div>
             </form>
         </div>
+        Немає акаунта? <a href="/register" data-toggle="dropdown">
+            <span class="text hidden-md hidden-lg">Зареєструватись</span>
+        </a>
     </main>
 </template>
 

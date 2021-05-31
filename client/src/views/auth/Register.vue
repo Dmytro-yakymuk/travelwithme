@@ -39,7 +39,7 @@
 
                             <div class="hold">
                                 <label for="role">Тип профілю</label>
-                                <select v-model="role" id="role">
+                                <select v-model="role" id="role" class="trip dark">
                                     <option :value="'owner'">Я пропоную тури</option>
                                     <option :value="'client'">Я шукаю тури</option>
                                 </select>
@@ -53,6 +53,9 @@
                 </div>
             </form>
         </div>
+        <a href="/login" data-toggle="dropdown">
+            <span class="text hidden-md hidden-lg">Увійти</span>
+        </a>
     </main>
 </template>
 
