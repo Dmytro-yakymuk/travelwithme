@@ -20,7 +20,7 @@
                   v-for="image in tour.images.slice(0,1)"
                   :key="image.id"
                   :src="imageURL+image.name" 
-                  height="215" width="370">
+                  height="100%" width="370">
                 <div class="hover-article">
                   <div class="info-footer">
                     <span class="price">від <span>{{ tour.minPrice }} грн</span></span>
@@ -109,6 +109,7 @@ export default {
 </script>
 <style scoped>
   .img-wrap{
-    height: 300px;
+    background: none;
+    height: 250px;
   }
 </style>
