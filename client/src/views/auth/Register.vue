@@ -18,7 +18,7 @@
         <div class="inner-main common-spacing container">
             <!-- form -->
             <form class="twocol-form" action="#" @submit.prevent="register">
-                <div class="col-md-6">
+                <div  style="margin: 0 280px;width: 600px">
                     <div class="top-box">
                         <span class="holder height">Реєстрація</span>
                     </div>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <a href="/login" data-toggle="dropdown">
-                        <span class="text hidden-md hidden-lg">Увійти</span>
+                        <span class="text">Увійти</span>
                     </a>
                 </div>
             </form>
