@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-        host: 'ec2-18-196-168-116.eu-central-1.compute.amazonaws.com',
+        host: 'ec2-3-67-201-36.eu-central-1.compute.amazonaws.com',
         port: 8080,
     }
 }

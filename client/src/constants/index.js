@@ -1,4 +1,4 @@
-URL = 'http://ec2-18-196-168-116.eu-central-1.compute.amazonaws.com:8000';
+URL = 'ec2-3-67-201-36.eu-central-1.compute.amazonaws.com:8000';
 
 export const 
     BaseURL = URL + '/api/v1',
